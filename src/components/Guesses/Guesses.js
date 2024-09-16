@@ -1,18 +1,21 @@
 import React from "react";
+import { range } from "../../utils";
+import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
+import Guess from "../Guess/Guess";
 
 function Guesses({ guesses }) {
+  // create an array of numbers to loop over
+  const availableGuesses = range(NUM_OF_GUESSES_ALLOWED);
   return (
     <div className="guess-results">
-      {guesses.length > 0
-        ? guesses.map((guess) => {
-            // check that guess is unique which will prevent key issue too
-            return (
-              <p key={guess} className="guess">
-                {guess}
-              </p>
-            );
-          })
-        : "Enter guesses below"}
+      {availableGuesses.map((number) => {
+        return (
+          <Guess
+            key={number}
+            word={guesses[number] ? guesses[number] : undefined}
+          />
+        );
+      })}
     </div>
   );
 }
