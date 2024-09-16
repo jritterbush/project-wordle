@@ -9,12 +9,7 @@ function Guesses({ guesses }) {
   return (
     <div className="guess-results">
       {availableGuesses.map((number) => {
-        return (
-          <Guess
-            key={number}
-            word={guesses[number] ? guesses[number] : undefined}
-          />
-        );
+        return <Guess key={number} word={guesses[number]} />;
       })}
     </div>
   );
