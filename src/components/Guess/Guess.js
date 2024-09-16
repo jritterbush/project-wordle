@@ -1,24 +1,18 @@
 import React from "react";
 import { range } from "../../utils";
+import { checkGuess } from "../../game-helpers";
 
-function Guess({ word }) {
+function Guess({ answer, word }) {
+  const checkedWord = word ? checkGuess(word, answer) : [];
   return (
     <p className="guess">
-      {range(5).map((number) => (
-        <span key={number} className="cell">
-          {word ? word[number] : undefined}
-        </span>
-      ))}
-
-      {/* My original pass, more complex */}
-      {/*letterArray.length > 0
-        ? letterArray.map((letter, index) => (
-            <span key={index} className="cell">
+      {checkedWord.length > 0
+        ? checkedWord.map(({ letter, status }, index) => (
+            <span key={index} className={`cell ${status}`}>
               {letter}
             </span>
           ))
-        : Array.from({ length: 5 }).map((letter, index) => (
-          ))*/}
+        : range(5).map((number) => <span key={number} className="cell"></span>)}
     </p>
   );
 }
