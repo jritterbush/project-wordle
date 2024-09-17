@@ -7,8 +7,17 @@ function Cell({ letter, status }) {
   return <span className={classes}>{letter}</span>;
 }
 
-function Guess({ answer, word }) {
+function Guess({ answer, word, onSuccess }) {
   const checkedWord = word ? checkGuess(word, answer) : [];
+  const guessedCorrectly =
+    checkedWord.length > 0
+      ? checkedWord.every((letter) => letter && letter.status === "correct")
+      : false;
+  React.useEffect(() => {
+    if (guessedCorrectly) {
+      onSuccess();
+    }
+  }, [guessedCorrectly, checkedWord]);
   return (
     <p className="guess">
       {range(5).map((number) => (

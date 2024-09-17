@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function GuessInput({ submitNewGuess }) {
+function GuessInput({ submitNewGuess, disabled }) {
   const [newGuess, setNewGuess] = useState("");
 
   const updateNewGuess = (event) => {
@@ -27,6 +27,7 @@ function GuessInput({ submitNewGuess }) {
         onChange={updateNewGuess}
         required
         title="5-letter word"
+        disabled={disabled}
       />
     </form>
   );
