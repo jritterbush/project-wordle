@@ -16,11 +16,9 @@ function GuessInput({ submitNewGuess, disabled }) {
 
   return (
     <form className="guess-input-wrapper" onSubmit={handleSubmitNewGuess}>
-      {disabled ? (
-        <p>Game Over</p>
-      ) : (
-        <label htmlFor="guess-input">Enter guess:</label>
-      )}
+      <label htmlFor="guess-input">
+        {disabled ? "Game Over" : "Enter guess:"}
+      </label>
       <input
         id="guess-input"
         type="text"
@@ -32,6 +30,7 @@ function GuessInput({ submitNewGuess, disabled }) {
         required
         title="5-letter word"
         disabled={disabled}
+        autoFocus
       />
     </form>
   );

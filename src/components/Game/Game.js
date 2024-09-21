@@ -12,17 +12,14 @@ import { checkGuess } from "../../game-helpers";
 function Game() {
   const [guesses, setGuesses] = useState([]);
   const [gameStatus, setGameStatus] = useState("playing"); // playing | won | lost
-  const [guessedLetters, setGuessedLetters] = useState([]);
   const [answer, setAnswer] = useState(sample(WORDS));
   console.info({ answer });
+
+  const validatedGuesses = guesses.map((guess) => checkGuess(guess, answer));
 
   const submitNewGuess = (guess) => {
     const newGuesses = [...guesses, guess];
     setGuesses(newGuesses);
-
-    const newCheckedGuess = checkGuess(guess, answer);
-    const newGuessedLetters = [...newCheckedGuess, ...guessedLetters];
-    setGuessedLetters(newGuessedLetters);
 
     if (guess.toUpperCase() === answer) {
       setGameStatus("won");
@@ -31,31 +28,26 @@ function Game() {
     }
   };
 
-  function resetGame() {
+  function handleResetGame() {
     setGuesses([]);
-    setGuessedLetters([]);
     setGameStatus("playing");
     setAnswer(sample(WORDS));
   }
 
-  function ResetButton() {
-    return (
-      <button className="reset-button" onClick={resetGame}>
-        Play Again >
-      </button>
-    );
-  }
-
   return (
     <>
-      <Guesses answer={answer} guesses={guesses} />
+      <Guesses validatedGuesses={validatedGuesses} />
       <GuessInput
         submitNewGuess={submitNewGuess}
         disabled={gameStatus !== "playing"}
       />
-      <Keyboard guessedLetters={guessedLetters} />
+      <Keyboard validatedGuesses={validatedGuesses} />
       {gameStatus !== "playing" && (
-        <Banner type={gameStatus === "won" ? "happy" : "sad"}>
+        <Banner
+          type={gameStatus === "won" ? "happy" : "sad"}
+          action={handleResetGame}
+          actionText="Play Again >"
+        >
           {gameStatus === "won" ? (
             <>
               <p>
@@ -67,15 +59,12 @@ function Game() {
                 </strong>
                 .
               </p>
-
-              <ResetButton />
             </>
           ) : (
             <>
               <p>
                 Sorry, the correct answer is <strong>{answer}</strong>.
               </p>
-              <ResetButton />
             </>
           )}
         </Banner>
