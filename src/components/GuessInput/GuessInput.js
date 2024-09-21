@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 function GuessInput({ submitNewGuess, disabled }) {
   const [newGuess, setNewGuess] = useState("");
@@ -16,7 +16,7 @@ function GuessInput({ submitNewGuess, disabled }) {
 
   return (
     <form className="guess-input-wrapper" onSubmit={handleSubmitNewGuess}>
-      <label htmlFor="guess-input">Enter guess:</label>
+      <label htmlFor="guess-input">{!disabled ? "Enter guess:" : ""}</label>
       <input
         id="guess-input"
         type="text"

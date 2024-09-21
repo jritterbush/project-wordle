@@ -1,22 +1,6 @@
-import React from "react";
-
-function Banner({ status, numGuesses, answer }) {
-  const isSuccess = status === "success";
-  const statusClasses = isSuccess ? "banner happy" : "banner sad";
-  return (
-    <div className={statusClasses}>
-      {isSuccess ? (
-        <p>
-          <strong>Congratulations!</strong> Got it in{" "}
-          <strong>{numGuesses} guesses</strong>.
-        </p>
-      ) : (
-        <p>
-          Sorry, the correct answer is <strong>{answer}</strong>.
-        </p>
-      )}
-    </div>
-  );
+// type = happy | sad
+function Banner({ type, children }) {
+  return <div className={`banner ${type}`}>{children}</div>;
 }
 
 export default Banner;
