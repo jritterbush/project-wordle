@@ -16,7 +16,11 @@ function GuessInput({ submitNewGuess, disabled }) {
 
   return (
     <form className="guess-input-wrapper" onSubmit={handleSubmitNewGuess}>
-      <label htmlFor="guess-input">{!disabled ? "Enter guess:" : ""}</label>
+      {disabled ? (
+        <p>Game Over</p>
+      ) : (
+        <label htmlFor="guess-input">Enter guess:</label>
+      )}
       <input
         id="guess-input"
         type="text"

@@ -40,6 +40,11 @@ button {
   color: inherit;
 }
 
+.reset-button {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -162,7 +167,7 @@ h1 {
 }
 
 .guess-input-wrapper input:disabled {
-  background-color: var(--color-gray-300);
+  background-color: var(--color-gray-700);
 }
 
 .banner {
@@ -221,6 +226,41 @@ h1 {
 }
 .modal-title {
   margin-bottom: 0.5em;
+}
+
+/*
+ * Keyboard
+ */
+.keyboard-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.key {
+  background-color: var(--color-gray-100);
+  color: black;
+  min-width: 32px;
+  height: 32px;
+  background-color: lightgray;
+  padding: 8px;
+  margin: 4px;
+  border-radius: 8px;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.key.correct {
+  background-color: var(--color-success);
+  color: white;
+}
+.key.incorrect {
+  background-color: var(--color-gray-300);
+  color: white;
+}
+.key.misplaced {
+  background-color: var(--color-warning);
+  color: white;
 }
 
 /*
