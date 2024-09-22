@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 
-function GuessInput({ submitNewGuess, disabled }) {
+const GuessInput = forwardRef(function GuessInput(
+  { submitNewGuess, disabled },
+  ref
+) {
   const [newGuess, setNewGuess] = useState("");
 
   const updateNewGuess = (event) => {
@@ -20,6 +23,7 @@ function GuessInput({ submitNewGuess, disabled }) {
         {disabled ? "Game Over" : "Enter guess:"}
       </label>
       <input
+        ref={ref}
         id="guess-input"
         type="text"
         minLength={5}
@@ -34,6 +38,6 @@ function GuessInput({ submitNewGuess, disabled }) {
       />
     </form>
   );
-}
+});
 
 export default GuessInput;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import { sample } from "../../utils";
 import { WORDS } from "../../data";
@@ -12,8 +12,17 @@ import { checkGuess } from "../../game-helpers";
 function Game() {
   const [guesses, setGuesses] = useState([]);
   const [gameStatus, setGameStatus] = useState("playing"); // playing | won | lost
+  const [isResetting, setIsResetting] = useState(false);
+  const guessInputRef = useRef();
   const [answer, setAnswer] = useState(sample(WORDS));
   console.info({ answer });
+
+  useEffect(() => {
+    if (isResetting && gameStatus === "playing") {
+      guessInputRef.current.focus();
+      setIsResetting(false);
+    }
+  }, [gameStatus]);
 
   const validatedGuesses = guesses.map((guess) => checkGuess(guess, answer));
 
@@ -29,6 +38,7 @@ function Game() {
   };
 
   function handleResetGame() {
+    setIsResetting(true);
     setGuesses([]);
     setGameStatus("playing");
     setAnswer(sample(WORDS));
@@ -38,6 +48,7 @@ function Game() {
     <>
       <Guesses validatedGuesses={validatedGuesses} />
       <GuessInput
+        ref={guessInputRef}
         submitNewGuess={submitNewGuess}
         disabled={gameStatus !== "playing"}
       />
